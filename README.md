@@ -111,3 +111,25 @@ Instead, you can use your favourite debugger (WinDbg, x64dbg, or even Cheat Engi
 ### Lua scripting
 
 **WIP**
+
+### Development
+
+The following instructions are for Windows.
+
+#### Setup
+
+- Clone this repo
+- Clone [vcpkg](https://github.com/microsoft/vcpkg) into the same parent directory (i.e. you should have `git/modengine2` and `git/vcpkg` directories)
+- Install [Ninja](https://github.com/ninja-build/ninja/wiki/Pre-built-Ninja-packages)
+- Install [Build tools for Visual Studio 2022](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022). Ensure you install the "Desktop Development with C++" option, as this will install MSVC and the Windows SDK.
+
+#### Building
+
+- From the Start menu, run an 'x64 Native Tools Command Prompt for VS 2022'.
+- Run the following command to setup the CMake project. You'll only need to re-run this if you make changes to any CMake config.
+
+  `cmake -S . -B "builddir" -G Ninja -DCMAKE_TOOLCHAIN_FILE="../vcpkg/scripts/buildsystems/vcpkg.cmake" -DMODENGINE_DIST_SCYLLA=1 -DCPACK_GENERATOR=ZIP -DVCPKG_OVERLAY_PORTS=third-party/vcpkg-overlays -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_MAKE_PROGRAM=ninja`
+
+- Make your changes, if any.
+- Run this command to build the project: `cmake --build "builddir" --target package`
+- The resulting file will be located at `builddir/ModEngine-x.x.x.x-win64.zip`.
