@@ -213,7 +213,7 @@ int main()
     auto *cmd = new wchar_t[cmd_len + 1];
     cmd[cmd_len] = 0;
 
-    wcscpy_s(cmd, cmd_len, cmd_str.c_str());
+    wcscpy_s(cmd, cmd_len + 1, cmd_str.c_str());
 
     auto proc_flags = 0;
     bool success = DetourCreateProcessWithDllW(
