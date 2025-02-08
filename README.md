@@ -126,7 +126,8 @@ The following instructions are for Windows.
 #### Building
 
 1. From the Start menu, run an 'x64 Native Tools Command Prompt for VS 2022'.
-2. Run the following command to setup the CMake project. You'll only need to re-run this if you make changes to any CMake config.
+2. CD into the modengine2 project directory.
+3. Run the following command to setup the CMake project. You'll only need to re-run this if you make changes to any CMake config.
 
 ```
 cmake -S . -B "builddir" -G Ninja -DCMAKE_TOOLCHAIN_FILE="../vcpkg/scripts/buildsystems/vcpkg.cmake" -DMODENGINE_DIST_SCYLLA=1 -DCPACK_GENERATOR=ZIP -DVCPKG_OVERLAY_PORTS=third-party/vcpkg-overlays -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_MAKE_PROGRAM=ninja
