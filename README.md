@@ -1,4 +1,3 @@
-
 # Mod Engine 2
 
 > [!IMPORTANT]
@@ -7,10 +6,11 @@
 Mod Engine 2 is a ground up rewrite of Mod Engine, a runtime code patching and injection library used for adding modding functionality to the Souls games by FROM Software.
 
 # Table of Contents
+
 1. [Get started](#get-started-guide)
 2. [Supported games](#supported-games)
-2. [Differences](#what-are-the-differences)
-3. [Features](#features)
+3. [Differences](#what-are-the-differences)
+4. [Features](#features)
 
 ## Get started guide
 
@@ -30,7 +30,7 @@ mods = [
 <details>
   <summary>Folder structure example (CLICK ME!)</summary>
 
-  ![folder exmaple image](docs/media/mod-engine-mod-folder-example.png)
+![folder exmaple image](docs/media/mod-engine-mod-folder-example.png)
 
 </details>
 
@@ -44,7 +44,6 @@ See the list below for information on games that currently have support in Mod E
 - [ ] Dark Souls Remastered
 - [ ] Sekiro: Shadows Die Twice
 - [ ] Bloodborne
-
 
 ## What are the differences?
 
@@ -80,7 +79,7 @@ To this end, we offer functionality to make the reversing process easier:
 
 ## Features
 
-Mod Engine 2 covers all existing functionality from the original Mod Engine for Dark Souls but introduces some important new features that mod authors should be aware of. 
+Mod Engine 2 covers all existing functionality from the original Mod Engine for Dark Souls but introduces some important new features that mod authors should be aware of.
 
 ### Mod Launcher
 
@@ -95,7 +94,7 @@ This simple command-line application has 3 main objectives.
 2. Start the game with modengine2.dll already loaded
 3. Pass information to modengine2.dll about the configuration the user launched the game with
 
-This allows us to keep mods, modengine, and the game itself completely detached. 
+This allows us to keep mods, modengine, and the game itself completely detached.
 As a result, running the game directly from Steam will always result in a vanilla instance being launched.
 
 ### Extension/plugin support
