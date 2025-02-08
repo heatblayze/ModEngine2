@@ -72,9 +72,11 @@ install(FILES
         installer/dist/config_darksouls3.toml
         installer/dist/config_eldenring.toml
         installer/dist/config_armoredcore6.toml
+        installer/dist/config_sekiro.toml
         installer/dist/launchmod_darksouls3.bat
         installer/dist/launchmod_eldenring.bat
         installer/dist/launchmod_armoredcore6.bat
+        installer/dist/launchmod_sekiro.bat
         installer/dist/README.txt
         DESTINATION .
         COMPONENT application)

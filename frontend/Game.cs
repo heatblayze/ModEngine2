@@ -57,7 +57,7 @@ namespace ModEngine2
                     case GameType.DarkSoulsIII:
                         return "DarkSoulsIII.exe";
                     case GameType.Sekiro:
-                        return "Sekiro.exe";
+                        return "sekiro.exe";
                     default:
                         throw new Exception("Unhandled game type");
                 }

@@ -21,7 +21,7 @@ static std::unordered_map<GameType, std::string> game_type_descriptions {
     { DS_REMASTERED, "Dark Souls Remastered" },
     { DS2, "Dark Souls 2: Scholar of The First Sin" },
     { DS3, "Dark Souls 3" },
-    { SEKIRO, "Sekiro" },
+    { SEKIRO, "Sekiro: Shadows Die Twice" },
     { ELDEN_RING, "Elden Ring" },
     { ARMORED_CORE_6, "Armored Core 6" }
 };
