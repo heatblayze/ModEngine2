@@ -31,7 +31,7 @@ typedef HANDLE(WINAPI* fpCreateFileW)(LPCWSTR, DWORD, DWORD, LPSECURITY_ATTRIBUT
 
 void* __cdecl virtual_to_archive_path_ds3(DLString<modengine::GameType::DS3, wchar_t>* path, UINT64 p2, UINT64 p3, DLString<modengine::GameType::DS3, wchar_t>* p4, UINT64 p5, UINT64 p6);
 void* __cdecl virtual_to_archive_path_ds2(LPVOID p1, dlstring_t* path);
-void* __cdecl virtual_to_archive_path_sekiro(DLString<modengine::GameType::SEKIRO, wchar_t>* path, UINT64 p2, UINT64 p3, DLString<modengine::GameType::SEKIRO, wchar_t>* p4, UINT64 p5, UINT64 p6);
+void* __cdecl virtual_to_archive_path_sekiro(dlstring_sekiro_t* path, UINT64 p2, UINT64 p3, dlstring_t* p4, UINT64 p5, UINT64 p6);
 void* __cdecl virtual_to_archive_path_eldenring(DLString<modengine::GameType::SEKIRO, wchar_t>* path, UINT64 p2, UINT64 p3, UINT64 p4, UINT64 p5, UINT64 p6);
 
 extern Hook<fpCreateFileW> hooked_CreateFileW;

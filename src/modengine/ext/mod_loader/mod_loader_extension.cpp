@@ -14,7 +14,7 @@ namespace modengine::ext {
 
 auto loose_params_aob_1 = util::hex_string("74 68 48 8B CF 48 89 5C 24 30 E8");
 auto loose_params_aob_2 = util::hex_string("0F 85 C5 00 00 00 48 8D 4C 24 28");
-//auto loose_params_aob_3 = util::hex_string("E8 C8 F7 F7 FF 90 E9 73 E3 1F 04");
+// auto loose_params_aob_3 = util::hex_string("E8 C8 F7 F7 FF 90 E9 73 E3 1F 04");
 
 auto virtual_to_archive_path_er_aob = util::hex_aob("e8 ?? ?? ?? ?? 48 83 7b 20 08 48 8d 4b 08 72 03 48 8b 09 4c 8b 4b 18 41 b8 05 00 00 00 4d 3b c8");
 auto virtual_to_archive_path_ac6_aob = util::hex_aob("cf e8 ?? ?? ?? ?? 48 83 7b 20 08 48 8d 4b 08 72 03 48 8b 09 4c 8b 4b 18 41 b8 05 00 00 00 4d 3b c8");
@@ -51,6 +51,21 @@ std::optional<fs::path> ModLoaderExtension::resolve_mod_path(const ModInfo& mod)
     return std::nullopt;
 }
 
+void ModLoaderExtension::DelayedPatches()
+{
+    // TODO: If possible, confirm this is the best method. This method would likely need either a high value to ensure all machines run correctly, or a config value to let users change it if they have launch issues.
+    Sleep(500);
+    register_hook(SEKIRO, &hooked_virtual_to_archive_path_sekiro, util::rva2addr(0x1c76d0), virtual_to_archive_path_sekiro);
+    reapply();
+}
+
+static DWORD WINAPI DelayedPatchesStart(void* Param)
+{
+    ModLoaderExtension* This = (ModLoaderExtension*)Param;
+    This->DelayedPatches();
+    return 0;
+}
+
 void ModLoaderExtension::on_attach()
 {
     register_patch(DS3, loose_params_aob_1, replace_with<uint8_t>({ 0xEB, 0x68 }));
@@ -61,8 +76,7 @@ void ModLoaderExtension::on_attach()
 
     register_hook(ALL, &hooked_CreateFileW, kernel32_path.wstring(), "CreateFileW", tCreateFileW);
     register_hook(DS3, &hooked_virtual_to_archive_path_ds3, util::rva2addr(0x7d660), virtual_to_archive_path_ds3);
-    // FIXME: Currently does not work. Working theory is that the memory address is incorrect
-    register_hook(SEKIRO, &hooked_virtual_to_archive_path_sekiro, util::rva2addr(0x4e8950), virtual_to_archive_path_sekiro);
+
     register_hook(ELDEN_RING, &hooked_virtual_to_archive_path_eldenring, virtual_to_archive_path_er_aob, 0x0, virtual_to_archive_path_eldenring, SCAN_CALL_INST);
     register_hook(ARMORED_CORE_6, &hooked_virtual_to_archive_path_eldenring, virtual_to_archive_path_ac6_aob, 0x1, virtual_to_archive_path_eldenring, SCAN_CALL_INST);
     register_hook(ELDEN_RING, &hooked_ak_file_location_resolver_open, ak_file_location_resolver_open_aob, 0x1E, ak_file_location_resolver_open, SCAN_CALL_INST);
@@ -84,6 +98,9 @@ void ModLoaderExtension::on_attach()
             warn(L"Unable to resolve mod path");
         }
     }
+
+    // Delayed patches (AKA Sekiro LOL)
+    CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)DelayedPatchesStart, this, NULL, NULL);
 }
 
 void ModLoaderExtension::on_detach()

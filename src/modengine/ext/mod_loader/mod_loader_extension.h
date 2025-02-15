@@ -53,6 +53,8 @@ public:
     {
     }
 
+    void DelayedPatches();
+
 private:
     void on_attach() override;
     void on_detach() override;

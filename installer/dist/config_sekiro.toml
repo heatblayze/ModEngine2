@@ -1,5 +1,5 @@
 [modengine]
-debug = false
+debug = true
 external_dlls = []
 
 [extension.mod_loader]
