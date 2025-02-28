@@ -12,6 +12,7 @@ public:
         : ModEngineExtension(instance)
     {
     }
+    bool inject_scyllahide_external();
 
 private:
     void on_attach() override;
@@ -21,7 +22,6 @@ private:
     {
         return "scylla_hide";
     }
-    bool inject_scyllahide_external();
 };
 
 }

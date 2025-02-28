@@ -6,10 +6,18 @@ namespace modengine::ext {
 
 using namespace spdlog;
 
+static DWORD WINAPI DelayedPatchesStart(void* Param)
+{
+    ScyllaHideExtension* This = (ScyllaHideExtension*)Param;
+    This->inject_scyllahide_external();
+    return 0;
+}
 
 bool ScyllaHideExtension::inject_scyllahide_external()
 {
     using std::filesystem::exists;
+
+    Sleep(6000);
 
     const auto installation_path = mod_engine_global->get_settings().modengine_install_path();
     const auto scylla_path = installation_path / "tools" / "scyllahide";
@@ -65,11 +73,12 @@ bool ScyllaHideExtension::inject_scyllahide_external()
 
 void ScyllaHideExtension::on_attach()
 {
-    if (inject_scyllahide_external()) {
-        info("ScyllaHide successfully injected");
-    } else {
-        warn("Unable to inject ScyllaHide hook");
-    }
+    CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)DelayedPatchesStart, this, NULL, NULL);
+    // if (inject_scyllahide_external()) {
+    //     info("ScyllaHide successfully injected");
+    // } else {
+    //     warn("Unable to inject ScyllaHide hook");
+    // }
 }
 
 void ScyllaHideExtension::on_detach()

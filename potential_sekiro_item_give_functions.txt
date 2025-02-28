@@ -1,0 +1,20 @@
+Ascending call depth
+
+sekiro.exe+7A7330
+sekiro.exe+7A9040
+sekiro.exe+91C970
+
+Shop item buy?
+sekiro.exe+D55DC0
+
+
+Function call to 91C970:
+RCX - 7FF4A35E4870 (may be short (item id))
+RDX - 0014E680 (may be short (amount))
+R9B - 001 (may be boolean? not sure, but it's always 0 for spirit emblems)
+
+
+1117783480
+Gachin
+Mibu                2850987072 1117783480
+Iron scrap          
